@@ -61,7 +61,7 @@ describe Imprecations, "#imprecate" do
   end
 
   [Object, Module, Kernel].each do |important_class|
-    it "refuses to imprecate important_class" do
+    it "refuses to imprecate #{important_class}" do
       lambda do
         important_class.imprecate
       end.should raise_error
