@@ -7,11 +7,10 @@ Gem::Specification.new do |s|
   s.version     = Imprecations::VERSION
   s.authors     = ["Gabe Berke-Williams"]
   s.email       = ["gabe@thoughtbot.com"]
-  s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
-
-  s.rubyforge_project = "imprecations"
+  s.homepage    = "https://github.com/gabebw/imprecations/"
+  s.summary     = %q{Deprecate ALL THE THINGS!}
+  s.description = [%q{Imprecations recursively deprecates every instance method},
+                   %q{on a class/module as well as all classes defined inside that class/module.}].join(' ')
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
