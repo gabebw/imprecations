@@ -24,12 +24,6 @@ module Imprecations
 
   def __imprecate(constant)
     unimprecated_instance_methods_for(constant).each do |method_name|
-      namespaced_constant = if superclass == Object
-                              constant.to_s
-                            else
-                              "#{superclass}::#{constant}"
-                            end
-
       constant.class_eval <<-EVIL
         # Store a reference
         alias :"__unimprecated_#{method_name}" :"#{method_name}"
@@ -38,7 +32,7 @@ module Imprecations
         undef_method "#{method_name}"
 
         def #{method_name}
-          Imprecations.say("DEPRECATION WARNING: #{namespaced_constant}##{method_name} is deprecated!")
+          Imprecations.say("DEPRECATION WARNING: #{constant}##{method_name} is deprecated!")
           __unimprecated_#{method_name}()
         end
       EVIL
