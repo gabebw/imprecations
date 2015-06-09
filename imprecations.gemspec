@@ -6,10 +6,10 @@ Gem::Specification.new do |s|
   s.name        = "imprecations"
   s.version     = Imprecations::VERSION
   s.authors     = ["Gabe Berke-Williams"]
-  s.email       = ["gabe@thoughtbot.com"]
+  s.email       = ["gabebw@gabebw.com"]
   s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.summary     = %q{Deprecate every single method on a class}
+  s.description = %q{Want to see a warning printed every time you call a method? Of course you do.}
 
   s.rubyforge_project = "imprecations"
 
