@@ -67,6 +67,7 @@ describe Imprecations, "#imprecate" do
     my_class = MyClass.new
     allow(my_class).to receive(:called_by_three)
 
+    silence_stdout
     my_class.three
 
     expect(my_class).to have_received(:called_by_three)
@@ -76,5 +77,9 @@ describe Imprecations, "#imprecate" do
     it "refuses to imprecate #{important_class}" do
       expect { important_class.imprecate }.to raise_error
     end
+  end
+
+  def silence_stdout
+    allow(STDOUT).to receive(:puts)
   end
 end
