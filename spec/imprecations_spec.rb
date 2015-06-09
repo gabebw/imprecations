@@ -31,14 +31,14 @@ describe Imprecations, "#imprecate" do
   end
 
   it "is available on any Object" do
-    MyClass.should respond_to :imprecate
-    MyClass::MySubClass.should respond_to :imprecate
-    MyModule.should respond_to :imprecate
+    expect(MyClass).to respond_to :imprecate
+    expect(MyClass::MySubClass).to respond_to :imprecate
+    expect(MyModule).to respond_to :imprecate
   end
 
   it "adds deprecation warnings for every instance method" do
-    Imprecations.should_receive(:say).with("DEPRECATION WARNING: MyClass#one is deprecated!")
-    Imprecations.should_receive(:say).with("DEPRECATION WARNING: MyClass#two is deprecated!")
+    expect(Imprecations).to receive(:say).with("DEPRECATION WARNING: MyClass#one is deprecated!")
+    expect(Imprecations).to receive(:say).with("DEPRECATION WARNING: MyClass#two is deprecated!")
 
     MyClass.imprecate
     instance = MyClass.new
@@ -47,24 +47,25 @@ describe Imprecations, "#imprecate" do
   end
 
   it "recursively adds deprecation warnings for every instance method" do
-    Imprecations.should_receive(:say).with("DEPRECATION WARNING: MyClass::MySubClass::MyTripleSubClass#triple_sub is deprecated!")
+    expect(Imprecations).to receive(:say).with("DEPRECATION WARNING: MyClass::MySubClass::MyTripleSubClass#triple_sub is deprecated!")
 
     MyClass.imprecate
     MyClass::MySubClass::MyTripleSubClass.new.triple_sub
   end
 
   it "calls the original method" do
-    MyClass.any_instance.should_receive(:called_by_three)
-
     MyClass.imprecate
-    MyClass.new.three
+    my_class = MyClass.new
+    allow(my_class).to receive(:called_by_three)
+
+    my_class.three
+
+    expect(my_class).to have_received(:called_by_three)
   end
 
   [Object, Module, Kernel].each do |important_class|
     it "refuses to imprecate #{important_class}" do
-      lambda do
-        important_class.imprecate
-      end.should raise_error
+      expect { important_class.imprecate }.to raise_error
     end
   end
 end
