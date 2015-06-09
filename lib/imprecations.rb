@@ -46,8 +46,10 @@ module Imprecations
   end
 
   def unimprecated_instance_methods_for(constant)
-    instance_methods_from_this_class= constant.instance_methods(false)
-    instance_methods_from_this_class.reject { |meth| meth.to_s =~ /^__unimprecated/ }
+    instance_methods_from_this_class = constant.instance_methods(false)
+    instance_methods_from_this_class.reject do |method|
+      method.to_s =~ /^__unimprecated/
+    end
   end
 end
 
