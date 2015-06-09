@@ -1,4 +1,11 @@
 require 'imprecations'
-require 'rspec/mocks'
 
-include RSpec::Mocks::Methods
+RSpec.configure do |config|
+  config.expect_with :rspec do |c|
+    c.syntax = :should
+  end
+
+  config.mock_with :rspec do |c|
+    c.syntax = :should
+  end
+end
