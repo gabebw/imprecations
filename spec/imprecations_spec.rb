@@ -39,20 +39,27 @@ describe Imprecations, "#imprecate" do
   end
 
   it "adds deprecation warnings for every instance method" do
-    expect(Imprecations).to receive(:say).with("DEPRECATION WARNING: MyClass#one is deprecated!")
-    expect(Imprecations).to receive(:say).with("DEPRECATION WARNING: MyClass#two is deprecated!")
+    allow(Imprecations).to receive(:say)
 
     MyClass.imprecate
     instance = MyClass.new
     instance.one
     instance.two
+
+    expect(Imprecations).to have_received(:say).
+      with("DEPRECATION WARNING: MyClass#one is deprecated!")
+    expect(Imprecations).to have_received(:say).
+      with("DEPRECATION WARNING: MyClass#two is deprecated!")
   end
 
   it "recursively adds deprecation warnings for every instance method" do
-    expect(Imprecations).to receive(:say).with("DEPRECATION WARNING: MyClass::MySubClass::MyTripleSubClass#triple_sub is deprecated!")
+    allow(Imprecations).to receive(:say)
 
     MyClass.imprecate
     MyClass::MySubClass::MyTripleSubClass.new.triple_sub
+
+    expect(Imprecations).to have_received(:say).
+      with("DEPRECATION WARNING: MyClass::MySubClass::MyTripleSubClass#triple_sub is deprecated!")
   end
 
   it "calls the original method" do
