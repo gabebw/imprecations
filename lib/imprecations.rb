@@ -16,10 +16,6 @@ module Imprecations
     class_constants.each(&:imprecate)
   end
 
-  def say(message)
-    puts message
-  end
-
   private
 
   def __imprecate(constant)
@@ -32,7 +28,7 @@ module Imprecations
         undef_method "#{method_name}"
 
         def #{method_name}
-          Imprecations.say("DEPRECATION WARNING: #{constant}##{method_name} is deprecated!")
+          $stdout.puts "DEPRECATION WARNING: #{constant}##{method_name} is deprecated!"
           __unimprecated_#{method_name}()
         end
       EVIL
