@@ -2,9 +2,6 @@ require 'spec_helper'
 
 describe Imprecations, "#imprecate" do
   before do
-    Object.send(:remove_const, :MyModule) if defined?(MyModule)
-    Object.send(:remove_const, :MyClass) if defined?(MyClass)
-
     module MyModule; end
 
     class MyClass
@@ -28,6 +25,11 @@ describe Imprecations, "#imprecate" do
       def called_by_three
       end
     end
+  end
+
+  after do
+    Object.send(:remove_const, :MyModule)
+    Object.send(:remove_const, :MyClass)
   end
 
   it "is available on any Object" do
