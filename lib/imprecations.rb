@@ -6,7 +6,7 @@ module Imprecations
       raise "Imprecate *#{self}*?! Sorry, even I'm not that evil."
     end
 
-    __imprecate(self)
+    imprecate_self
     imprecate_child_constants
   end
 
@@ -18,9 +18,9 @@ module Imprecations
 
   private
 
-  def __imprecate(constant)
-    unimprecated_instance_methods_for(constant).each do |method_name|
-      constant.class_eval <<-EVIL
+  def imprecate_self
+    unimprecated_instance_methods_for(self).each do |method_name|
+      class_eval <<-EVIL
         # Store a reference
         alias :"__unimprecated_#{method_name}" :"#{method_name}"
 
@@ -28,7 +28,7 @@ module Imprecations
         undef_method "#{method_name}"
 
         def #{method_name}
-          $stdout.puts "DEPRECATION WARNING: #{constant}##{method_name} is deprecated!"
+          $stdout.puts "DEPRECATION WARNING: #{self}##{method_name} is deprecated!"
           __unimprecated_#{method_name}()
         end
       EVIL
