@@ -1,8 +1,10 @@
 require "imprecations/version"
 
 module Imprecations
+  DO_NOT_IMPRECATE = [Object, Module, Kernel]
+
   def imprecate
-    if [Object, Module, Kernel].include?(self)
+    if DO_NOT_IMPRECATE.include?(self)
       raise "Imprecate *#{self}*?! Sorry, even I'm not that evil."
     end
 
@@ -11,7 +13,8 @@ module Imprecations
   end
 
   def imprecate_child_constants
-    real_constants = constants.map { |c| const_get(c) }
+    constant_names = constants
+    real_constants = constant_names.map { |c| const_get(c) }
     class_constants = real_constants.select { |c| Class === c }
     class_constants.each(&:imprecate)
   end

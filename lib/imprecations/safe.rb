@@ -1,4 +1,4 @@
 # Mwa ha ha ha
-require 'imprecations'
+require "imprecations"
 
 Module.imprecate_child_constants
