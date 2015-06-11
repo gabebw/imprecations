@@ -79,6 +79,10 @@ describe Imprecations, "#imprecate" do
     end
   end
 
+  it "can imprecate Module's child constants" do
+    expect { Module.imprecate_child_constants }.not_to raise_error
+  end
+
   def silence_stderr
     allow($stderr).to receive(:puts)
   end
