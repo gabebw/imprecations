@@ -1,5 +1,7 @@
 # Imprecations: Because that's what you'll be hurling at the screen
 
+[![Build Status](https://travis-ci.org/gabebw/imprecations.svg?branch=master)](https://travis-ci.org/gabebw/imprecations)
+
 Imprecations recursively deprecates every instance method on a class/module as
 well as all classes defined inside that class/module.
 
