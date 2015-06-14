@@ -39,26 +39,26 @@ describe Imprecations, "#imprecate" do
   end
 
   it "adds deprecation warnings for every instance method" do
-    allow($stdout).to receive(:puts)
+    allow($stderr).to receive(:puts)
 
     MyClass.imprecate
     instance = MyClass.new
     instance.one
     instance.two
 
-    expect($stdout).to have_received(:puts).
+    expect($stderr).to have_received(:puts).
       with("DEPRECATION WARNING: MyClass#one is deprecated!")
-    expect($stdout).to have_received(:puts).
+    expect($stderr).to have_received(:puts).
       with("DEPRECATION WARNING: MyClass#two is deprecated!")
   end
 
   it "recursively adds deprecation warnings for every instance method" do
-    allow($stdout).to receive(:puts)
+    allow($stderr).to receive(:puts)
 
     MyClass.imprecate
     MyClass::MySubClass::MyTripleSubClass.new.triple_sub
 
-    expect($stdout).to have_received(:puts).
+    expect($stderr).to have_received(:puts).
       with("DEPRECATION WARNING: MyClass::MySubClass::MyTripleSubClass#triple_sub is deprecated!")
   end
 
@@ -67,7 +67,7 @@ describe Imprecations, "#imprecate" do
     my_class = MyClass.new
     allow(my_class).to receive(:called_by_three)
 
-    silence_stdout
+    silence_stderr
     my_class.three
 
     expect(my_class).to have_received(:called_by_three)
@@ -79,7 +79,7 @@ describe Imprecations, "#imprecate" do
     end
   end
 
-  def silence_stdout
-    allow($stdout).to receive(:puts)
+  def silence_stderr
+    allow($stderr).to receive(:puts)
   end
 end

@@ -28,7 +28,7 @@ module Imprecations
         undef_method "#{method_name}"
 
         def #{method_name}
-          $stdout.puts "DEPRECATION WARNING: #{self}##{method_name} is deprecated!"
+          $stderr.puts "DEPRECATION WARNING: #{self}##{method_name} is deprecated!"
           __unimprecated_#{method_name}()
         end
       EVIL
