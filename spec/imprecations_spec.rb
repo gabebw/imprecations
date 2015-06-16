@@ -75,7 +75,7 @@ describe Imprecations, "#imprecate" do
 
   [Object, Module, Kernel].each do |important_class|
     it "refuses to imprecate #{important_class}" do
-      expect { important_class.imprecate }.to raise_error
+      expect { important_class.imprecate }.to raise_error /not that evil/
     end
   end
 
