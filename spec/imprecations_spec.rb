@@ -2,9 +2,19 @@ require 'spec_helper'
 
 describe Imprecations, "#imprecate" do
   before do
-    module MyModule; end
+    module MyModule
+    end
 
     class MyClass
+      def one; end
+      def two; end
+
+      def three
+        called_by_three
+      end
+
+      def called_by_three; end
+
       class MySubClass
         def sub_one
         end
@@ -13,16 +23,6 @@ describe Imprecations, "#imprecate" do
           def triple_sub
           end
         end
-      end
-
-      def one; end
-      def two; end
-
-      def three
-        called_by_three
-      end
-
-      def called_by_three
       end
     end
   end
